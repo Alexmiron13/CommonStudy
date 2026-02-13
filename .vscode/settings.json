@@ -1,11 +1,3 @@
 {
-  "C_Cpp.intelliSenseEngine": "default",
-  "idf.openOcdConfigs": [
-    "board/esp32s3-builtin.cfg"
-  ],
-  "idf.port": "detect",
-  "idf.currentSetup": "/home/alex/espressif/esp-idf",
-  "idf.customExtraVars": {
-    "IDF_TARGET": "esp32s3"
-  }
+    "idf.currentSetup": "C:\\esp\\v5.5.2\\esp-idf"
 }
