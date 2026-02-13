@@ -1,0 +1,94 @@
+menu "WI-Fi Station Configuration"
+
+    orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
+
+    config WIFI_STA_SSID
+        string "WiFi SSID"
+        default "PRM Guest"
+        help
+            Set the SSID (network name) for the WiFi connection.
+
+    config WIFI_STA_PASSWORD
+        string "WiFi Password"
+        default "Prmgue$t781"
+        help
+            Set the password for the WiFi connection.
+
+    choice WIFI_STA_SAE_MODE
+        prompt "WPA3 SAE mode selection"
+        default ESP_WPA3_SAE_PWE_BOTH
+        help
+            Select mode for SAE as Hunt and Peck, H2E or both.
+
+        config WIFI_STA_WPA3_SAE_PWE_HUNT_AND_PECK
+            bool "HUNT AND PECK"
+            help
+                Use Hunt and Peck mode for WPA3 SAE.
+
+        config WIFI_STA_WPA3_SAE_PWE_HASH_TO_ELEMENT
+            bool "H2E"
+            help
+                Use Hash to Element (H2E) mode for WPA3 SAE.
+
+        config WIFI_STA_WPA3_SAE_PWE_BOTH
+            bool "BOTH"
+            help
+                Use both Hunt and Peck and H2E modes for WPA3 SAE.
+    endchoice
+
+    config WIFI_STA_PASSWORD_ID
+        string "PASSWORD IDENTIFIER"
+        depends on  WPA3_SAE_PWE_HASH_TO_ELEMENT || WPA3_SAE_PWE_BOTH
+        default ""
+        help
+            Set the password identifier for WPA3 SAE H2E or BOTH modes.
+
+    config WIFI_STA_MAXIMUM_RETRY
+        int "Maximum retry"
+        default 5
+        help
+            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+
+    choice WIFI_STA_SCAN_AUTH_MODE_THRESHOLD
+        prompt "WiFi Scan auth mode threshold"
+        default ESP_WIFI_AUTH_WPA2_PSK
+        help
+            The weakest authmode to accept in the scan mode.
+            This value defaults to ESP_WIFI_AUTH_WPA2_PSK incase password is present and ESP_WIFI_AUTH_OPEN is used.
+            Please select ESP_WIFI_AUTH_WEP/ESP_WIFI_AUTH_WPA_PSK incase AP is operating in WEP/WPA mode.
+
+        config WIFI_STA_AUTH_OPEN
+            bool "OPEN"
+            help
+                Accept OPEN authentication mode in scan results.
+        config WIFI_STA_AUTH_WEP
+            bool "WEP"
+            help
+                Accept WEP authentication mode in scan results.
+        config WIFI_STA_AUTH_WPA_PSK
+            bool "WPA PSK"
+            help
+                Accept WPA PSK authentication mode in scan results.
+        config WIFI_STA_AUTH_WPA2_PSK
+            bool "WPA2 PSK"
+            help
+                Accept WPA2 PSK authentication mode in scan results.
+        config WIFI_STA_AUTH_WPA_WPA2_PSK
+            bool "WPA/WPA2 PSK"
+            help
+                Accept WPA/WPA2 PSK authentication mode in scan results.
+        config WIFI_STA_AUTH_WPA3_PSK
+            bool "WPA3 PSK"
+            help
+                Accept WPA3 PSK authentication mode in scan results.
+        config WIFI_STA_AUTH_WPA2_WPA3_PSK
+            bool "WPA2/WPA3 PSK"
+            help
+                Accept WPA2/WPA3 PSK authentication mode in scan results.
+        config WIFI_STA_AUTH_WAPI_PSK
+            bool "WAPI PSK"
+            help
+                Accept WAPI PSK authentication mode in scan results.
+    endchoice
+
+endmenu
