@@ -29,28 +29,6 @@ static void exti_task1(void *p_arg);
 /***************************************************************************************************
 * API
 **************************************************************************************************/
-
-/***************************************************************************************************
-* STATIC
-**************************************************************************************************/
-/**
-* @brief Task to handle GPIO interrupts
-*
-* @param p_arg Task argument (unused)
-*/
-static void exti_task1(void *p_arg)
-{
-    uint32_t io_num;
-    
-    for (;;)
-    {
-        if (xQueueReceive(m_gpio_evt_queue, &io_num, portMAX_DELAY))
-        {
-            printf("GPIO[%"PRIu32"] intr, val: %d\n", io_num, gpio_get_level(io_num));
-        }
-    }
-}
-
 /**
 * @brief Main application entry point
 *
@@ -85,6 +63,26 @@ void app_main(void)
     for (;;)
     {
         vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+/***************************************************************************************************
+* STATIC
+**************************************************************************************************/
+/**
+* @brief Task to handle GPIO interrupts
+*
+* @param p_arg Task argument (unused)
+*/
+static void exti_task1(void *p_arg)
+{
+    uint32_t io_num;
+    
+    for (;;)
+    {
+        if (xQueueReceive(m_gpio_evt_queue, &io_num, portMAX_DELAY))
+        {
+            printf("GPIO[%"PRIu32"] intr, val: %d\n", io_num, gpio_get_level(io_num));
+        }
     }
 }
 
