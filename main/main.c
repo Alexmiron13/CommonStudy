@@ -24,7 +24,8 @@ static QueueHandle_t m_gpio_evt_queue = NULL;
 /***************************************************************************************************
 * Static functions declaration
 **************************************************************************************************/
-static void exti_task1(void *p_arg);
+static void ext_task1(void *p_arg);
+static void IRAM_ATTR gpio_isr_handler(void* p_arg);
 
 /***************************************************************************************************
 * API
@@ -57,14 +58,23 @@ void app_main(void)
     gpio_set_intr_type(CONFIG_BUTTON_GPIO_1, GPIO_INTR_ANYEDGE);
     m_gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
 
+    // Install GPIO ISR service
+    gpio_install_isr_service(ESP_INTR_FLAG_DEFAULT);
+
     /* Start the interrupt handling task */
-    xTaskCreate(exti_task1, "exti_task1", 2048, NULL, 10, NULL);
+    xTaskCreate(ext_task1, "ext_task1", 2048, NULL, 10, NULL);
+
+    gpio_isr_handler_add(CONFIG_BUTTON_GPIO_1, gpio_isr_handler, (void*) CONFIG_BUTTON_GPIO_1);
+    gpio_isr_handler_add(CONFIG_BUTTON_GPIO_2, gpio_isr_handler, (void*) CONFIG_BUTTON_GPIO_2);
 
     for (;;)
     {
+        printf("cnt: %d\n", cnt++);
+        gpio_set_level(CONFIG_BLINK_GPIO, cnt % 2);
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
+
 /***************************************************************************************************
 * STATIC
 **************************************************************************************************/
@@ -73,7 +83,7 @@ void app_main(void)
 *
 * @param p_arg Task argument (unused)
 */
-static void exti_task1(void *p_arg)
+static void ext_task1(void *p_arg)
 {
     uint32_t io_num;
     
@@ -86,6 +96,14 @@ static void exti_task1(void *p_arg)
     }
 }
 
+/**
+* @brief GPIO interrupt handler
+*/
+static void IRAM_ATTR gpio_isr_handler(void* p_arg)
+{
+    uint32_t gpio_num = (uint32_t) p_arg;
+    xQueueSendFromISR(m_gpio_evt_queue, &gpio_num, NULL);
+}
 /***************************************************************************************************
 * EOF
 **************************************************************************************************/
