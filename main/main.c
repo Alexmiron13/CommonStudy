@@ -25,7 +25,7 @@ static QueueHandle_t m_gpio_evt_queue = NULL;
 * Static functions declaration
 **************************************************************************************************/
 static void ext_task1(void *p_arg);
-static void IRAM_ATTR gpio_isr_handler(void* p_arg);
+static void gpio_isr_handler(void* p_arg);
 
 /***************************************************************************************************
 * API
