@@ -23,7 +23,17 @@
 esp_err_t i2c_master_driver_initialize(i2c_port_t i2c_port, int chip_addr, int i2c_gpio_sda, int i2c_gpio_scl) //i2c initialization function
     {
         esp_err_t ret;  
-        return 0;
+        i2c_config_t conf = 
+        {
+            .mode = I2C_BUS_MODE_MASTER,
+            .sda_io_num = i2c_gpio_sda,
+            .sda_pullup_en = GPIO_PULLUP_ENABLE,
+            .scl_io_num = i2c_gpio_scl,
+            .scl_pullup_en = GPIO_PULLUP_ENABLE,
+            .master.clk_speed = I2C_FREQUENCY
+        };
+        ret = i2c_param_config(i2c_port, &conf);
+        return ret;
     }
 /***************************************************************************************************
  * STATIC
