@@ -49,6 +49,18 @@ void AT24C_WriteBytes (i2c_port_t i2c_port, uint16_t addr, uint8_t *buf, uint16_
 {
     uint16_t i;
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, at24c_addr << 1 | I2C_MASTER_WRITE, ACK_CHECK_EN);
+    i2c_master_write_byte(cmd, (uint8_t) (addr>>8), ACK_CHECK_EN);
+    i2c_master_write_byte(cmd, (uint8_t) addr, ACK_CHECK_EN);
+    for(i=0;i<bytes_count;i++)
+    {
+        i2c_master_write_byte(cmd, buf[i], ACK_CHECK_EN);
+    }
+    i2c_master_stop(cmd);
+    i2c_master_cmd_begin(i2c_port, cmd, 1000 / portTICK_PERIOD_MS);
+    i2c_cmd_link_delete(cmd);
+    usleep(1000*2);
 }    
 /***************************************************************************************************
  * STATIC
