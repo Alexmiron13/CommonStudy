@@ -39,11 +39,17 @@ esp_err_t i2c_master_driver_initialize(i2c_port_t i2c_port, int chip_addr, int i
         {
             return ret;
         }
-        
+
         at24c_addr = chip_addr; 
         ret = i2c_driver_install(i2c_port, I2C_MODE_MASTER, 0, 0, 0);
         return ret;
     }
+
+void AT24C_WriteBytes (i2c_port_t i2c_port, uint16_t addr, uint8_t *buf, uint16_t bytes_count)
+{
+    uint16_t i;
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+}    
 /***************************************************************************************************
  * STATIC
  **************************************************************************************************/
