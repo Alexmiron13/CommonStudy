@@ -42,7 +42,15 @@ void app_main(void)
     ret = i2c_master_driver_initialize(i2c_port, I2C_ADDRESS, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO);
 
     ESP_LOGI(TAG, "Init: %d", ret);
+
     AT24C_WriteBytes (i2c_port, 0x0120, wr_value, 20);
+    AT24C_ReadBytes(i2c_port, 0x0120 , rd_value, 20);
+    for(i=0;i<20;i++)
+    {
+        printf("%02X ",rd_value[i]);
+    }
+    printf("\r\n");
+    
     for (;;)
     {
         vTaskDelay(10 / portTICK_PERIOD_MS);
