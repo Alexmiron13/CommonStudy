@@ -20,7 +20,7 @@
 /***************************************************************************************************
  * API
  **************************************************************************************************/
-esp_err_t i2c_master_driver_initialize(i2c_port_t i2c_port, int chip_addr, int i2c_gpio_sda, int i2c_gpio_scl)
+esp_err_t i2c_master_driver_initialize(i2c_port_t i2c_port, int chip_addr, int i2c_gpio_sda, int i2c_gpio_scl) //i2c initialization function
     {
         esp_err_t ret;  
         return 0;

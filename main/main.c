@@ -15,7 +15,7 @@
 /***************************************************************************************************
 * Definitions
 **************************************************************************************************/
-#define I2C_ADDRESS  0x50
+#define I2C_ADDRESS  0x50 
 
 /***************************************************************************************************
 * Variables
@@ -32,9 +32,10 @@ static const char *TAG = "main";
 **************************************************************************************************/
 void app_main(void)
 {
-    uint16_t i=0;
-    i2c_port_t i2c_port = I2C_NUM_0;
-    esp_err_t ret;
+    uint16_t i = 0;
+    i2c_port_t i2c_port = I2C_NUM_0;  //var - port number of the i2c module. sar_i2c_scl_0 (RTC_GPIO0), sar_i2c_sda_0 (RTC_GPIO1)
+    esp_err_t ret;  //variable for the error code 
+    ret = i2c_master_driver_initialize(i2c_port, I2C_ADDRESS, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO);
     for (;;)
     {
         ;
