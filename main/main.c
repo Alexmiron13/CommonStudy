@@ -45,7 +45,7 @@ void app_main(void)
     AT24C_WriteBytes (i2c_port, 0x0120, wr_value, 20);
     for (;;)
     {
-        ;
+        vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
 

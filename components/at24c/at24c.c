@@ -62,6 +62,26 @@ void AT24C_WriteBytes (i2c_port_t i2c_port, uint16_t addr, uint8_t *buf, uint16_
     i2c_cmd_link_delete(cmd);
     usleep(1000*2);
 }    
+
+void AT24C_ReadBytes (i2c_port_t i2c_port, uint16_t addr, uint8_t *buf, uint16_t bytes_count)
+{
+  uint16_t i;
+  i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, at24c_addr << 1 | I2C_MASTER_WRITE, ACK_CHECK_EN);
+  i2c_master_write_byte(cmd, (uint8_t) (addr>>8), ACK_CHECK_EN);
+  i2c_master_write_byte(cmd, (uint8_t) addr, ACK_CHECK_EN);
+  i2c_master_start(cmd);
+  i2c_master_write_byte(cmd, at24c_addr << 1 | I2C_MASTER_READ, ACK_CHECK_EN);
+  for(i=0;i<bytes_count;i++)
+  {
+    if(i<(bytes_count-1)) i2c_master_read_byte(cmd, buf+i, I2C_MASTER_ACK);
+    else  i2c_master_read_byte(cmd, buf+i, I2C_MASTER_LAST_NACK);
+  }
+  i2c_master_stop(cmd);
+  i2c_master_cmd_begin(i2c_port, cmd, 1000 / portTICK_PERIOD_MS);
+  i2c_cmd_link_delete(cmd);
+}
 /***************************************************************************************************
  * STATIC
  **************************************************************************************************/
