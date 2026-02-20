@@ -26,12 +26,13 @@ esp_err_t i2c_master_driver_initialize(i2c_port_t i2c_port, int chip_addr, int i
         esp_err_t ret;  
         i2c_config_t conf = 
         {
-            .mode = I2C_BUS_MODE_MASTER,
-            .sda_io_num = i2c_gpio_sda,
-            .sda_pullup_en = GPIO_PULLUP_ENABLE,
-            .scl_io_num = i2c_gpio_scl,
+            .mode = I2C_MODE_MASTER,         // Режим мастер
+            .sda_io_num = i2c_gpio_sda,          // Пин SDA
+            .sda_pullup_en = GPIO_PULLUP_ENABLE, 
+            .scl_io_num = i2c_gpio_scl,          // Пин SCL
             .scl_pullup_en = GPIO_PULLUP_ENABLE,
             .master.clk_speed = I2C_FREQUENCY
+           // .clk_flags = I2C_SCLK_SRC_FLAG_FOR_NOMAL // Флаги тактирования (можно 0 для автовыбора)
         };
         ret = i2c_param_config(i2c_port, &conf);
 
@@ -39,6 +40,7 @@ esp_err_t i2c_master_driver_initialize(i2c_port_t i2c_port, int chip_addr, int i
         {
             return ret;
         }
+       // i2c_filter_enable(i2c_port, 7); // Фильтр с порогом 7 тактов
 
         at24c_addr = chip_addr; 
         ret = i2c_driver_install(i2c_port, I2C_MODE_MASTER, 0, 0, 0);
