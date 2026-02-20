@@ -84,6 +84,14 @@ void AT24C_ReadBytes (i2c_port_t i2c_port, uint16_t addr, uint8_t *buf, uint16_t
   i2c_master_cmd_begin(i2c_port, cmd, 1000 / portTICK_PERIOD_MS);
   i2c_cmd_link_delete(cmd);
 }
+
+/**
+ * @brief Функция для освобождения ресурсов I2C0
+ */
+esp_err_t i2c_master_deinit(i2c_port_t i2c_port)
+{
+    return i2c_driver_delete(i2c_port);
+}
 /***************************************************************************************************
  * STATIC
  **************************************************************************************************/
