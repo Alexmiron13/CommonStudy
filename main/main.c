@@ -42,7 +42,7 @@ void app_main(void)
 
     ESP_LOGI(TAG, "Init: %d", ret);
 
-    AT24C_WriteBytes (i2c_master_port, 0x0120, wr_value, 20,);
+    AT24C_WriteBytes (i2c_master_port, 0x0120, wr_value, 20);
     AT24C_ReadBytes(i2c_master_port, 0x0120 , rd_value, 20);
     for(uint16_t i=0;i<20;i++)
     {
