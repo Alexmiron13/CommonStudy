@@ -3,14 +3,14 @@ menu "Example Configuration"
     config SDA_GPIO
         int "SDA GPIO number"
         range 0 48
-        default 1
+        default 42
         help
             GPIO number SDA.
  
     config SCL_GPIO
         int "SCL GPIO number"
         range 0 48
-        default 0
+        default 40
         help
             GPIO number SCL. 
  
