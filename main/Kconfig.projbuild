@@ -1,26 +1,25 @@
+
 menu "Example Configuration"
-
-    orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
-
-    config BLINK_GPIO
-        int "Blink GPIO number"
-        range 0 48
-        default 2
-        help
-            GPIO number (IOxx) to blink on and off the LED.
-            Some GPIOs are used for other purposes (flash connections, etc.) and cannot be used to blink.
-
-    config BUTTON_GPIO_1
-        int "Button GPIO1 number"
-        range 0 48
-        default 19
-        help
-            GPIO number Button 1.
-
-    config BUTTON_GPIO_2
-        int "Button GPIO2 number"
+ 
+    config PIN_NUM_MOSI
+        int "MOSI pin"
         range 0 48
         default 20
         help
-            GPIO number Button 2.
+            MOSI pin
+ 
+    config PIN_NUM_CLK
+        int "CLK pin"
+        range 0 48
+        default 21
+        help
+            CLK pin
+ 
+    config PIN_NUM_CS
+        int "CS pin"
+        range 0 48
+        default 19
+        help
+            CS pin
+ 
 endmenu
