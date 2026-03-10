@@ -6,6 +6,8 @@
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "driver/gpio.h"
+#include <driver/spi_master.h>
+#include "esp_err.h"
 #include "esp_log.h"
 #include "sdkconfig.h"
 #include <inttypes.h>
