@@ -31,7 +31,24 @@ static const char *TAG = "main";
 **************************************************************************************************/
 void app_main(void)
 {
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+    esp_err_t ret;
+  // Configure SPI bus
+    spi_bus_config_t cfg = 
+    {
+        .mosi_io_num = CONFIG_PIN_NUM_MOSI,
+        .miso_io_num = -1,
+        .sclk_io_num = CONFIG_PIN_NUM_CLK,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+        .max_transfer_sz = 0,
+        .flags = 0
+    };
+    ret = spi_bus_initialize(SPI2_HOST, &cfg, 1);
+    ESP_LOGI(TAG, "spi bus initialize: %d", ret);
+    for (;;)
+    {
+        vTaskDelay(100 / portTICK_PERIOD_MS);
+    }
 }
 
 /***************************************************************************************************
