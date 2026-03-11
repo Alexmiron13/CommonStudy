@@ -43,7 +43,7 @@ void app_main(void)
         .max_transfer_sz = 0,
         .flags = 0
     };
-    ret = spi_bus_initialize(SPI2_HOST, &cfg, 1);
+    ret = spi_bus_initialize(SPI3_HOST, &cfg, 1);
     ESP_LOGI(TAG, "spi bus initialize: %d", ret);
     for (;;)
     {

@@ -1,0 +1,26 @@
+menu "SPI Configuration"
+
+    orsource "$IDF_PATH/examples/common_components/env_caps/$IDF_TARGET/Kconfig.env_caps"
+
+    config PIN_NUM_MOSI
+        int "MOSI pin"
+        range 0 48
+        default 20
+        help
+            MOSI pin
+ 
+    config PIN_NUM_CLK
+        int "CLK pin"
+        range 0 48
+        default 21
+        help
+            CLK pin
+ 
+    config PIN_NUM_CS
+        int "CS pin"
+        range 0 48
+        default 19
+        help
+            CS pin
+
+endmenu
