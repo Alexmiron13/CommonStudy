@@ -13,7 +13,6 @@
 #include "SPI.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include <driver/spi_master.h>
 #include "driver/gpio.h"
 #include "freertos/semphr.h"
 /***************************************************************************************************
@@ -34,19 +33,11 @@
  * Variables
  **************************************************************************************************/
 
-/* The configuration structure of the device that we will communicate with via SPI */
-typedef struct
-{
-    spi_device_interface_config_t spi_cfg;
-    spi_device_handle_t spi_dev;
-} prj_spi_device_t;
-
-static prj_spi_device_t m_spi_device;
 static const char *TAG = "main";
 /***************************************************************************************************
  * API
  **************************************************************************************************/
-prj_status_t prj_spi_init (void)
+prj_status_t prj_spi_init (prj_spi_device_t *m_spi_device)
 {
     esp_err_t err;
     
@@ -63,7 +54,7 @@ prj_status_t prj_spi_init (void)
     };
 
     // Initialize SPI bus
-    err = spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_DISABLED);
+    err = spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_CH_AUTO);
     ESP_LOGI(TAG, "spi bus initialize: %d", err);
     if (err != ESP_OK) 
     {
@@ -71,7 +62,7 @@ prj_status_t prj_spi_init (void)
     }
 
     // Configuration for SPI device
-    m_spi_device.spi_cfg = (spi_device_interface_config_t) 
+    m_spi_device->spi_cfg = (spi_device_interface_config_t) 
     {
         .clock_speed_hz = CONFIG_SPI_CLOCK_SPEED_HZ,
         .mode = CONFIG_SPI_MODE,
@@ -80,7 +71,7 @@ prj_status_t prj_spi_init (void)
     };
 
     // Add SPI device
-    err = spi_bus_add_device(SPI2_HOST, &m_spi_device.spi_cfg, &m_spi_device.spi_dev);
+    err = spi_bus_add_device(SPI2_HOST, &m_spi_device->spi_cfg, &m_spi_device->spi_dev);
     if (err != ESP_OK) 
     {
         return PRJ_ERROR_INTERNAL;
@@ -89,8 +80,7 @@ prj_status_t prj_spi_init (void)
     return PRJ_SUCCESS;
 }
 
-
-void prj_send_spi (uint16_t *buf, uint8_t sz)
+void prj_send_spi (prj_spi_device_t *m_spi_device, uint16_t *buf, uint8_t sz)
 {
   spi_transaction_t one_transaction;
   memset(&one_transaction, 0, sizeof(one_transaction));
@@ -98,7 +88,7 @@ void prj_send_spi (uint16_t *buf, uint8_t sz)
   for(uint8_t i=0; i<sz; i++)
   {
     one_transaction.tx_buffer = buf + i;
-    spi_device_transmit(m_spi_device.spi_dev, &one_transaction);
+    spi_device_transmit(m_spi_device->spi_dev, &one_transaction);
   }
 }
 /***************************************************************************************************

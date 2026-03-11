@@ -11,6 +11,7 @@
 #include "esp_log.h"
 #include "sdkconfig.h"
 #include "SPI.h"
+#include "w25q_spi.h"
 #include <inttypes.h>
 /***************************************************************************************************
 * Definitions
@@ -21,7 +22,7 @@
 * Variables
 **************************************************************************************************/
 static const char *TAG = "main";
-
+static prj_spi_device_t w25q_spi_cfg;
 /***************************************************************************************************
 * Static functions declaration
 **************************************************************************************************/
@@ -33,7 +34,8 @@ static const char *TAG = "main";
 void app_main(void)
 {
     prj_status_t status = PRJ_SUCCESS;
-    status |= prj_spi_init ();
+    status |= prj_w25q_spi_init ();
+    status |= prj_spi_init (&w25q_spi_cfg);
     
     for (;;)
     {
