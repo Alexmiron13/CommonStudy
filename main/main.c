@@ -10,6 +10,7 @@
 #include "esp_err.h"
 #include "esp_log.h"
 #include "sdkconfig.h"
+#include "SPI.h"
 #include <inttypes.h>
 /***************************************************************************************************
 * Definitions
@@ -31,20 +32,9 @@ static const char *TAG = "main";
 **************************************************************************************************/
 void app_main(void)
 {
-    esp_err_t ret;
-  // Configure SPI bus
-    spi_bus_config_t cfg = 
-    {
-        .mosi_io_num = CONFIG_PIN_NUM_MOSI,
-        .miso_io_num = -1,
-        .sclk_io_num = CONFIG_PIN_NUM_CLK,
-        .quadwp_io_num = -1,
-        .quadhd_io_num = -1,
-        .max_transfer_sz = 0,
-        .flags = 0
-    };
-    ret = spi_bus_initialize(SPI3_HOST, &cfg, 1);
-    ESP_LOGI(TAG, "spi bus initialize: %d", ret);
+    prj_status_t status = PRJ_SUCCESS;
+    status |= prj_spi_init ();
+    
     for (;;)
     {
         vTaskDelay(100 / portTICK_PERIOD_MS);

@@ -20,19 +20,19 @@
 
 /* Default SPI configuration values */
 #ifndef CONFIG_SPI_MISO_GPIO
-#define CONFIG_SPI_MISO_GPIO    12
+#define CONFIG_SPI_MISO_GPIO    19
 #endif
 
 #ifndef CONFIG_SPI_MOSI_GPIO
-#define CONFIG_SPI_MOSI_GPIO    13
+#define CONFIG_SPI_MOSI_GPIO    20
 #endif
 
 #ifndef CONFIG_SPI_SCLK_GPIO
-#define CONFIG_SPI_SCLK_GPIO    14
+#define CONFIG_SPI_SCLK_GPIO    21
 #endif
 
 #ifndef CONFIG_SPI_CS_GPIO
-#define CONFIG_SPI_CS_GPIO      15
+#define CONFIG_SPI_CS_GPIO      47
 #endif
 
 #ifndef CONFIG_SPI_CLOCK_SPEED_HZ

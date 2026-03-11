@@ -42,6 +42,7 @@ typedef struct
 } prj_spi_device_t;
 
 static prj_spi_device_t m_spi_device;
+static const char *TAG = "main";
 /***************************************************************************************************
  * API
  **************************************************************************************************/
@@ -55,11 +56,14 @@ prj_status_t prj_spi_init (void)
         .mosi_io_num = CONFIG_SPI_MOSI_GPIO,
         .sclk_io_num = CONFIG_SPI_SCLK_GPIO,
         .quadwp_io_num = -1,
-        .quadhd_io_num = -1
+        .quadhd_io_num = -1,
+        .max_transfer_sz = 0,
+        .flags = 0
     };
 
     // Initialize SPI bus
     err = spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_DISABLED);
+    ESP_LOGI(TAG, "spi bus initialize: %d", err);
     if (err != ESP_OK) {
         return PRJ_ERROR_INTERNAL;
     }
