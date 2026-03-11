@@ -2,10 +2,16 @@
   "configurations": [
     {
       "name": "ESP-IDF",
-      "compilerPath": "/home/alex/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32-elf-gcc",
+      "compilerPath": "/home/alex/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc",
       "compileCommands": "${config:idf.buildPath}/compile_commands.json",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/**",
+        "/home/alex/espressif/esp-idf/components/**",
+        "/home/alex/espressif/esp-idf/**",
+        "/home/alex/espressif/esp-idf/components/esp_common/include",
+        "/home/alex/espressif/esp-idf/components/esp_system/include",
+        "/home/alex/espressif/esp-idf/components/freertos/FreeRTOS-Kernel/include",
+        "${workspaceFolder}/components/SPI/include"
       ],
       "browse": {
         "path": [
