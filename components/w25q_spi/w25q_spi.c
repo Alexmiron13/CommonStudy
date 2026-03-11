@@ -10,10 +10,15 @@
 /***************************************************************************************************
  * Includes
  **************************************************************************************************/
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
+#include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include <driver/spi_master.h>
 #include "driver/gpio.h"
 #include "freertos/semphr.h"
+#include "esp_log.h"
 #include "w25q_spi.h"
 /***************************************************************************************************
  * Definitions
