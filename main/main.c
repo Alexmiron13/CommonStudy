@@ -34,8 +34,9 @@ static prj_spi_device_t w25q_spi_cfg;
 void app_main(void)
 {
     prj_status_t status = PRJ_SUCCESS;
-    status |= prj_w25q_spi_init ();
-    status |= prj_spi_init (&w25q_spi_cfg);
+
+    status |= prj_spi_init (SPI2_HOST);
+    status |= prj_w25q_spi_init (&w25q_spi_cfg, SPI2_HOST, CONFIG_SPI_CS_GPIO);
     
     for (;;)
     {

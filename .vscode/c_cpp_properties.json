@@ -1,25 +1,19 @@
 {
-  "configurations": [
-    {
-      "name": "ESP-IDF",
-      "compilerPath": "/home/alexmir/.espressif/tools/xtensa-esp-elf/esp-14.2.0_20251107/xtensa-esp-elf/bin/xtensa-esp32s3-elf-gcc",
-      "compileCommands": "${config:idf.buildPath}/compile_commands.json",
-      "includePath": [
-        "${workspaceFolder}/**",
-        "/home/alex/espressif/esp-idf/components/**",
-        "/home/alex/espressif/esp-idf/**",
-        "/home/alex/espressif/esp-idf/components/esp_common/include",
-        "/home/alex/espressif/esp-idf/components/esp_system/include",
-        "/home/alex/espressif/esp-idf/components/freertos/FreeRTOS-Kernel/include",
-        "${workspaceFolder}/components/SPI/include"
-      ],
-      "browse": {
-        "path": [
-          "${workspaceFolder}"
-        ],
-        "limitSymbolsToIncludedHeaders": true
-      }
-    }
-  ],
-  "version": 4
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/home/alexmir/.espressif/v5.5.2/esp-idf/**",
+                "/home/alex/espressif/esp-idf/**",
+                "${workspaceFolder}/components/at24c/include"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
 }

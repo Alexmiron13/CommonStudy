@@ -37,10 +37,9 @@ static const char *TAG = "main";
 /***************************************************************************************************
  * API
  **************************************************************************************************/
-prj_status_t prj_spi_init (prj_spi_device_t *m_spi_device)
+prj_status_t prj_spi_init (spi_host_device_t host)
 {
-    esp_err_t err;
-    
+    esp_err_t err; 
     // Configuration for SPI bus
     spi_bus_config_t buscfg = 
     {
@@ -54,29 +53,12 @@ prj_status_t prj_spi_init (prj_spi_device_t *m_spi_device)
     };
 
     // Initialize SPI bus
-    err = spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_CH_AUTO);
+    err = spi_bus_initialize(host, &buscfg, SPI_DMA_CH_AUTO);
     ESP_LOGI(TAG, "spi bus initialize: %d", err);
     if (err != ESP_OK) 
     {
         return PRJ_ERROR_INTERNAL;
     }
-
-    // Configuration for SPI device
-    m_spi_device->spi_cfg = (spi_device_interface_config_t) 
-    {
-        .clock_speed_hz = CONFIG_SPI_CLOCK_SPEED_HZ,
-        .mode = CONFIG_SPI_MODE,
-        .spics_io_num = CONFIG_SPI_CS_GPIO,
-        .queue_size = 7,
-    };
-
-    // Add SPI device
-    err = spi_bus_add_device(SPI2_HOST, &m_spi_device->spi_cfg, &m_spi_device->spi_dev);
-    if (err != ESP_OK) 
-    {
-        return PRJ_ERROR_INTERNAL;
-    }
-
     return PRJ_SUCCESS;
 }
 

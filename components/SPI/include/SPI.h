@@ -58,7 +58,7 @@ typedef struct
 /***************************************************************************************************
  * API
  **************************************************************************************************/
-prj_status_t prj_spi_init (prj_spi_device_t *m_spi_device);
+prj_status_t prj_spi_init (spi_host_device_t host);
 void prj_send_spi (prj_spi_device_t *m_spi_device, uint16_t *buf, uint8_t sz);
 #endif /* SPI_H */
 /***************************************************************************************************
