@@ -63,11 +63,40 @@ prj_status_t prj_w25q_spi_init (prj_spi_device_t *m_spi_device, spi_host_device_
     err = spi_bus_add_device(host, &m_spi_device->spi_cfg, &m_spi_device->spi_dev);
     if (err != ESP_OK) 
     {
+        ESP_LOGI(TAG, "spi_bus_add_device_failed=%d",err);
         return PRJ_ERROR_INTERNAL;
     }
-
+    ESP_LOGI(TAG, "spi_bus_add_device=%d",err);
     return PRJ_SUCCESS;
 }
+
+void W25_Reset (prj_spi_device_t *m_spi_device)
+{
+  spi_transaction_t SPITransaction;
+  uint8_t data[2];
+  data[0] = W25_ENABLE_RESET;
+  data[1] = W25_RESET;
+  memset( &SPITransaction, 0, sizeof( spi_transaction_t ) );
+  SPITransaction.length = 2 * 8;
+  SPITransaction.tx_buffer = data;
+  SPITransaction.rx_buffer = data;
+  spi_device_transmit(m_spi_device->spi_dev, &SPITransaction );
+}
+
+
+uint32_t W25_Read_ID(prj_spi_device_t *m_spi_device)
+{
+  spi_transaction_t SPITransaction;
+  uint8_t data[4];
+  data[0] = W25_GET_JEDEC_ID;
+  memset( &SPITransaction, 0, sizeof( spi_transaction_t ) );
+  SPITransaction.length = 4 * 8;
+  SPITransaction.tx_buffer = data;
+  SPITransaction.rx_buffer = data;
+  spi_device_transmit(m_spi_device->spi_dev, &SPITransaction );
+  return (data[1] << 16) | (data[2] << 8) | data[3];
+}
+
 /***************************************************************************************************
  * STATIC
  **************************************************************************************************/

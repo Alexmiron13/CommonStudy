@@ -21,7 +21,7 @@
 
 /* Default SPI configuration values */
 #ifndef CONFIG_SPI_MISO_GPIO
-#define CONFIG_SPI_MISO_GPIO    19
+#define CONFIG_SPI_MISO_GPIO    48
 #endif
 
 #ifndef CONFIG_SPI_MOSI_GPIO
@@ -43,6 +43,11 @@
 #ifndef CONFIG_SPI_MODE
 #define CONFIG_SPI_MODE   0
 #endif
+
+#define    W25_ENABLE_RESET  0x66
+#define    W25_RESET  0x99
+#define    W25_READ  0x03
+#define    W25_GET_JEDEC_ID  0x9f
 /***************************************************************************************************
  * Macros
  **************************************************************************************************/

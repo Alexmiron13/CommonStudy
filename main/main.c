@@ -37,6 +37,9 @@ void app_main(void)
 
     status |= prj_spi_init (SPI2_HOST);
     status |= prj_w25q_spi_init (&w25q_spi_cfg, SPI2_HOST, CONFIG_SPI_CS_GPIO);
+    W25_Reset(&w25q_spi_cfg); 
+    uint32_t id = W25_Read_ID(&w25q_spi_cfg);
+    ESP_LOGI(TAG, "ID:0x%X",id);
     
     for (;;)
     {

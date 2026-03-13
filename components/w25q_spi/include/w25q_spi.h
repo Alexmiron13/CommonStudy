@@ -28,6 +28,8 @@
  * API
  **************************************************************************************************/
 prj_status_t prj_w25q_spi_init (prj_spi_device_t *m_spi_device, spi_host_device_t host, gpio_num_t cs_pin);
+void W25_Reset (prj_spi_device_t *m_spi_device);
+uint32_t W25_Read_ID(prj_spi_device_t *m_spi_device);
 #endif /* W25Q_SPI_H */
 /***************************************************************************************************
  * EOF
