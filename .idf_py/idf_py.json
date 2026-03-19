@@ -1,0 +1,24 @@
+{
+    "idfPath": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf",
+    "toolsPath": "/home/alex/.espressif",
+    "pythonBinPath": "/home/alex/.espressif/python_env/idf6.1_py3.10_env/bin/python",
+    "bashPath": "/usr/bin/bash",
+    "customExtraPaths": [
+        "/home/alex/.espressif/tools/xtensa-esp-elf-gdb/16.3_20250913/xtensa-esp-elf-gdb/bin",
+        "/home/alex/.espressif/tools/riscv32-esp-elf-gdb/16.3_20250913/riscv32-esp-elf-gdb/bin",
+        "/home/alex/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/bin",
+        "/home/alex/.espressif/tools/riscv32-esp-elf/esp-15.2.0_20251204/riscv32-esp-elf/bin",
+        "/home/alex/.espressif/tools/esp32ulp-elf/2.38_20240113/esp32ulp-elf/bin",
+        "/home/alex/.espressif/tools/openocd-esp32/v0.12.0-esp32-20251215/openocd-esp32/bin",
+        "/home/alex/.espressif/python_env/idf6.1_py3.10_env/bin",
+        "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf/tools"
+    ],
+    "openOcdConfigs": [
+        "interface/ftdi/esp_ftdi.cfg",
+        "target/esp32s3.cfg"
+    ],
+    "port": "/dev/ttyUSB0",
+    "terminalType": "external",
+    "idfCustomTerminalExecutable": "/usr/bin/gnome-terminal",
+    "idfCustomTerminalExecArgs": ["-e"]
+}

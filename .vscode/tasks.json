@@ -1,0 +1,114 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Setup ESP-IDF Environment",
+            "type": "shell",
+            "command": "./setup_environment.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install ESP-IDF Tools",
+            "type": "shell",
+            "command": "./install_esp_idf.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Initialize ESP-IDF Terminal",
+            "type": "shell",
+            "command": "./idf_terminal_init.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run ESP-IDF Installation Manager (Python)",
+            "type": "process",
+            "command": "python3",
+            "args": ["${workspaceFolder}/run_idf_installer.py"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Launch ESP-IDF GUI Installation Manager",
+            "type": "shell",
+            "command": "./launch_idf_gui.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Open ESP-IDF Management Interface",
+            "type": "shell",
+            "command": "./open_idf_gui_manager.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "IDF_PATH": "/home/alex/my_main_folder/Study/ESP32/ESP32_for_esp_idf/esp-idf"
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}
