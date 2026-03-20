@@ -59,9 +59,9 @@ prj_status_t prj_w25q_spi_init (prj_spi_device_t *m_spi_device, spi_host_device_
 {
     esp_err_t err;
 
-    gpio_reset_pin( CONFIG_PIN_NUM_CS );
-    gpio_set_direction( CONFIG_PIN_NUM_CS, GPIO_MODE_OUTPUT );
-    gpio_set_level( CONFIG_PIN_NUM_CS, 0 );
+    gpio_reset_pin(CONFIG_PIN_NUM_CS);
+    gpio_set_direction(CONFIG_PIN_NUM_CS, GPIO_MODE_OUTPUT);
+    gpio_set_level(CONFIG_PIN_NUM_CS, 0);
 
     // Configuration for SPI device
     m_spi_device->spi_cfg = (spi_device_interface_config_t) 
@@ -86,9 +86,9 @@ prj_status_t prj_w25q_spi_init (prj_spi_device_t *m_spi_device, spi_host_device_
 
 
 //Она нужна для того, чтобы при вызове функции выполнения транзакции с модулем SPI мы могли передавать значение уровня ножки DC.
-// void lcd_spi_pre_transfer_callback(spi_transaction_t *t)
+// void lcd_spi_pre_transfer_callback(spi_transaction_t *SPITransaction)
 // {
-//     int dc=(int)t->user;
+//     int dc=(int)SPITransaction->user;
 //     gpio_set_level(CONFIG_PIN_NUM_DC, dc);
 // }
 
@@ -98,11 +98,12 @@ void W25_Reset (prj_spi_device_t *m_spi_device)
   uint8_t data[2];
   data[0] = W25_ENABLE_RESET;
   data[1] = W25_RESET;
-  memset( &SPITransaction, 0, sizeof( spi_transaction_t ) );
+  memset( &SPITransaction, 0, sizeof(spi_transaction_t));
   SPITransaction.length = 2 * 8;
   SPITransaction.tx_buffer = data;
   SPITransaction.rx_buffer = data;
-  spi_device_transmit(m_spi_device->spi_dev, &SPITransaction );
+// SPITransaction.user = (void*)0;
+  spi_device_transmit(m_spi_device->spi_dev, &SPITransaction);
 }
 
 
@@ -112,11 +113,11 @@ uint32_t W25_Read_ID(prj_spi_device_t *m_spi_device)
   w25_info_t w25_info;
   uint8_t data[4];
   data[0] = W25_GET_JEDEC_ID;
-  memset( &SPITransaction, 0, sizeof( spi_transaction_t ) );
+  memset( &SPITransaction, 0, sizeof(spi_transaction_t));
   SPITransaction.length = 4 * 8;
   SPITransaction.tx_buffer = data;
   SPITransaction.rx_buffer = data;
-  spi_device_transmit(m_spi_device->spi_dev, &SPITransaction );
+  spi_device_transmit(m_spi_device->spi_dev, &SPITransaction);
   uint32_t id = (data[1] << 16) | (data[2] << 8) | data[3];
   ESP_LOGI(TAG, "ID:0x%X",id);
  
