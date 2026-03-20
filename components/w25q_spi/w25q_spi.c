@@ -70,6 +70,7 @@ prj_status_t prj_w25q_spi_init (prj_spi_device_t *m_spi_device, spi_host_device_
         .mode = CONFIG_SPI_MODE,
         .spics_io_num = cs_pin,
         .queue_size = 7,
+     // .pre_cb=lcd_spi_pre_transfer_callback,  //Specify pre-transfer callback to handle D/C line
     };
 
     // Add SPI device
@@ -82,6 +83,14 @@ prj_status_t prj_w25q_spi_init (prj_spi_device_t *m_spi_device, spi_host_device_
     ESP_LOGI(TAG, "spi_bus_add_device=%d",err);
     return PRJ_SUCCESS;
 }
+
+
+//Она нужна для того, чтобы при вызове функции выполнения транзакции с модулем SPI мы могли передавать значение уровня ножки DC.
+// void lcd_spi_pre_transfer_callback(spi_transaction_t *t)
+// {
+//     int dc=(int)t->user;
+//     gpio_set_level(CONFIG_PIN_NUM_DC, dc);
+// }
 
 void W25_Reset (prj_spi_device_t *m_spi_device)
 {
