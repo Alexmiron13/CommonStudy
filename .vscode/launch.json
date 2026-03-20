@@ -2,24 +2,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "espidf",
-            "name": "Launch",
+            "preLaunchTask": "preRun",
+            "name": "ESP32 OpenOCD",
+            "type": "cppdbg",
             "request": "launch",
-            "openocd": {
-                "command": "${command:espIdf.getOpenOcdCommand}",
-                "config": [
-                    "interface/ftdi/esp_ftdi.cfg",
-                    "target/esp32s3.cfg"
-                ],
-                "search": [
-                    "${command:espIdf.getOpenOcdScripts}"
-                ],
-                "cwd": "${workspaceFolder}"
-            },
-            "executable": "${workspaceFolder}/build/${command:espIdf.getProjectName}.elf",
-            "symbols": "${workspaceFolder}/build/${command:espIdf.getProjectName}.elf",
-            "svd_file": "",
-            "port": "43474"
+            "cwd": "${workspaceFolder}/build",
+            "program": "${workspaceFolder}/build/Lessens.elf",
+            "miDebuggerPath": "/home/alex/.espressif/tools/xtensa-esp-elf-gdb/16.3_20250913/xtensa-esp-elf-gdb/bin/xtensa-esp32s3-elf-gdb",
+            "setupCommands": [
+                {
+                    "text": "target extended-remote :3333"
+                },
+                {
+                    "text": "set remote hardware-watchpoint-limit 2"
+                },
+                {
+                    "text": "monitor reset halt"
+                },
+                {
+                    "text": "flushregs"
+                }
+            ]
         }
     ]
 }

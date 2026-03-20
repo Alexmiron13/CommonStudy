@@ -25,15 +25,15 @@
 #endif
 
 #ifndef CONFIG_SPI_MOSI_GPIO
-#define CONFIG_SPI_MOSI_GPIO    20
+#define CONFIG_SPI_MOSI_GPIO    47
 #endif
 
 #ifndef CONFIG_SPI_SCLK_GPIO
-#define CONFIG_SPI_SCLK_GPIO    21
+#define CONFIG_SPI_SCLK_GPIO    12
 #endif
 
 #ifndef CONFIG_SPI_CS_GPIO
-#define CONFIG_SPI_CS_GPIO      47
+#define CONFIG_SPI_CS_GPIO      13
 #endif
 
 #ifndef CONFIG_SPI_CLOCK_SPEED_HZ

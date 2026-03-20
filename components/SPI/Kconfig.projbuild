@@ -5,21 +5,28 @@ menu "SPI Configuration"
     config PIN_NUM_MOSI
         int "MOSI pin"
         range 0 48
-        default 20
+        default 47
         help
             MOSI pin
+
+  config PIN_NUM_MISO
+        int "MISO pin"
+        range 0 48
+        default 48
+        help
+            MISO pin
  
     config PIN_NUM_CLK
         int "CLK pin"
         range 0 48
-        default 21
+        default 12
         help
             CLK pin
  
     config PIN_NUM_CS
         int "CS pin"
         range 0 48
-        default 19
+        default 13
         help
             CS pin
 

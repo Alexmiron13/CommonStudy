@@ -18,7 +18,7 @@ menu "Example Configuration"
     config PIN_NUM_CS
         int "CS pin"
         range 0 48
-        default 19
+        default 13
         help
             CS pin
  
